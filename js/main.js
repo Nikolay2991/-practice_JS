@@ -126,7 +126,18 @@
 // }
 
 
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+let numberOfFilms;
+
+function start() {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+
+    }
+}
+
+// start();
 
 const personalMovieDB = {
      count: numberOfFilms,
@@ -136,21 +147,27 @@ const personalMovieDB = {
      privat: false
 };
 
-for (let i = 0; i < 1; i++) {
-    const a = prompt('Один из последний просмотренных фильмов?', ''),
-          b = prompt('На сколько оцените его?', ''),
-          c = prompt('Какой любимый актер?');
+function rememberMyFilms() {
+    for (let i = 0; i < 1; i++) {
+        const a = prompt('Один из последний просмотренных фильмов?', ''),
+            b = prompt('На сколько оцените его?', ''),
+            c = prompt('Какой любимый актер?');
 
-    if (a,b,c != null && a,b,c != '' && a.length < 50) {
-        personalMovieDB.movies[a] = b;
-        personalMovieDB.actors[1] = c;
-        personalMovieDB.actors[2] = c;
-        console.log('done');
-    } else {
-        i--;
-        console.log('error');
+        if (a,b,c != null && a,b,c != '' && a.length < 50) {
+            personalMovieDB.movies[a] = b;
+            personalMovieDB.actors[1] = c;
+            personalMovieDB.actors[2] = c;
+            console.log('done');
+        } else {
+            i--;
+            console.log('error');
+        }
     }
+}
 
+// rememberMyFilms();
+
+function detectPersonalLevel() {
     if  (personalMovieDB.count < 10) {
         console.log("Просмотрено довольно мало фильмов");
     } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
@@ -160,7 +177,48 @@ for (let i = 0; i < 1; i++) {
     } else {
         console.log('Произошла ошибка');
     }
-
 }
 
-console.log(personalMovieDB);
+// detectPersonalLevel(); 
+
+function showMyDB(hidden) {
+    if (!hidden) {
+        console.log(personalMovieDB);
+    }
+}
+
+showMyDB(personalMovieDB.privat);
+
+function writeYourGenres() {
+    for (let i = 1; i <= 3; i++) {
+        personalMovieDB.genres[i-1] = prompt(`Ваш любимый жанр под номером ${i}`, '');
+    }
+}
+
+writeYourGenres();
+
+
+// function showFirstMessage(text) {
+//     console.log(text);
+// }
+
+// showFirstMessage('Hello World');
+
+// function calc(a, b) {
+//     return (a + b);
+// }
+
+// console.log(calc(5, 6));
+
+// const str = "test";
+
+// console.log(str.length)
+
+// console.log(str.toUpperCase())
+
+
+// const logg = "Вася прошел к речке и нашел там большую черепаху";
+
+// console.log(logg.slice(6, 11));
+
+// console.log(logg.substring(6, 11));
