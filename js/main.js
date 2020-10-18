@@ -126,92 +126,97 @@
 // }
 
 
-let numberOfFilms;
-
-function start() {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-    numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-
-    }
-}
-
-// start();
-
 const personalMovieDB = {
-     count: numberOfFilms,
+     count: 0,
      movies: {},
      actors: {},
      genres: [],
-     privat: false
-};
-
-function rememberMyFilms() {
-    for (let i = 0; i < 1; i++) {
-        const a = prompt('Один из последний просмотренных фильмов?', ''),
-            b = prompt('На сколько оцените его?', ''),
-            c = prompt('Какой любимый актер?');
-
-        if (a,b,c != null && a,b,c != '' && a.length < 50) {
-            personalMovieDB.movies[a] = b;
-            personalMovieDB.actors[1] = c;
-            personalMovieDB.actors[2] = c;
-            console.log('done');
+     privat: false,
+     start: function () {
+        personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    
+        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
+            personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
+    
+        }
+    },
+    rememberMyFilms: function() {
+        for (let i = 0; i < 1; i++) {
+            const a = prompt('Один из последний просмотренных фильмов?', ''),
+                b = prompt('На сколько оцените его?', ''),
+                c = prompt('Какой любимый актер?');
+    
+            if (a,b,c != null && a,b,c != '' && a.length < 50) {
+                personalMovieDB.movies[a] = b;
+                personalMovieDB.actors[1] = c;
+                personalMovieDB.actors[2] = c;
+                console.log('done');
+            } else {
+                i--;
+                console.log('error');
+            }
+        }
+    },
+    showMyDB: function(hidden) {
+        if (!hidden) {
+            console.log(personalMovieDB);
+        }
+    },
+    toggleVisibleMyDB: function() {
+        if (personalMovieDB.privat) {
+            personalMovieDB.privat = false; 
         } else {
-            i--;
-            console.log('error');
+            personalMovieDB.privat = true;
+        }
+    },
+    writeYourGenres: function() {
+        for (let i = 1; i <= 3; i++) {
+            let genres = prompt(`Ваш любимый жанр под номером ${i}`, '');
+            if (genres === null || genres === '') {
+                console.log("Некоректные данные или пустая графа")
+                i--;
+            } else {
+                personalMovieDB.genres[i - 1] = genres;
+            }
+        }
+        personalMovieDB.genres.forEach((item, i) => {
+            console.log(`Любимый жанр ${i + 1} - это ${item}`);
+        });
+    },
+    detectPersonalLevel: function() {
+        if  (personalMovieDB.count < 10) {
+            console.log("Просмотрено довольно мало фильмов");
+        } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
+            console.log("Вы классический зритель");
+        } else if (personalMovieDB.count >= 30) {
+            console.log("Вы киноман");
+        } else {
+            console.log('Произошла ошибка');
         }
     }
-}
-
-// rememberMyFilms();
-
-function detectPersonalLevel() {
-    if  (personalMovieDB.count < 10) {
-        console.log("Просмотрено довольно мало фильмов");
-    } else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
-        console.log("Вы классический зритель");
-    } else if (personalMovieDB.count >= 30) {
-        console.log("Вы киноман");
-    } else {
-        console.log('Произошла ошибка');
-    }
-}
-
-// detectPersonalLevel(); 
-
-function showMyDB(hidden) {
-    if (!hidden) {
-        console.log(personalMovieDB);
-    }
-}
-
-showMyDB(personalMovieDB.privat);
-
-function writeYourGenres() {
-    for (let i = 1; i <= 3; i++) {
-        personalMovieDB.genres[i-1] = prompt(`Ваш любимый жанр под номером ${i}`, '');
-    }
-}
-
-const options = {
-    name: 'test',
-    width: 1024,
-    height: 1024,
-    colors: {
-        border: 'black',
-        bg: 'red'
-    },
-    makeTest: function() {
-        console.log("Test");
-    }
 };
 
-options.makeTest();
 
-const {border, bg} = options.colors;
-console.log(bg);
+
+
+
+// const options = {
+//     name: 'test',
+//     width: 1024,
+//     height: 1024,
+//     colors: {
+//         border: 'black',
+//         bg: 'red'
+//     },
+//     makeTest: function() {
+//         console.log("Test");
+//     }
+// };
+
+// options.makeTest();
+
+// const {border, bg} = options.colors;
+// console.log(bg);
 
 // console.log(Object.keys(options));
 
@@ -220,19 +225,19 @@ console.log(bg);
 // delete options.name;
 
 // console.log(options);
-let counter = 0;
-for (let key in options) {
-    if (typeof(options[key]) === 'object') {
-        for (let i in options[key]) {
-            console.log(`Свойство ${i} имеет значение ${options[key][i]}`);
-        }
-    } else {
-        console.log(`Свойство ${key} имеет значение ${options[key]}`);
-    }
-    counter++;
-}
+// let counter = 0;
+// for (let key in options) {
+//     if (typeof(options[key]) === 'object') {
+//         for (let i in options[key]) {
+//             console.log(`Свойство ${i} имеет значение ${options[key][i]}`);
+//         }
+//     } else {
+//         console.log(`Свойство ${key} имеет значение ${options[key]}`);
+//     }
+//     counter++;
+// }
 
-console.log(counter);
+// console.log(counter);
 
 // writeYourGenres();
 
@@ -272,3 +277,135 @@ console.log(counter);
 // console.log(logg.slice(6, 11));
 
 // console.log(logg.substring(6, 11));
+
+
+
+
+
+
+
+// Массивы 
+
+
+
+
+
+// const arr = [1, 2, 3, 6, 8];
+// arr.sort(compareNum);
+// console.log(arr);
+
+// function compareNum(a, b) {
+//     return a - b;
+// }
+
+// console.log(arr.length);
+
+// arr.pop();
+
+// arr.push(10);
+
+// console.log(arr);
+
+// for (let i = 0; i < arr.length; i++) {
+//     console.log(arr[i]);
+// }
+
+// arr.forEach(function(item, i, arr) {
+//     console.log(`${i}: ${item} внутри массива ${arr}`);
+// });
+
+
+// const str = prompt('', '');
+// const products = str.split(', ');
+// products.sort();
+// console.log(products.join('; '));
+
+
+
+
+
+
+// Передача по ссылке или по значению, Spread оператор (ES6 - ES9)
+
+
+// let a = 5,
+//     b = a;
+
+// b = b + 5;
+
+// console.log(b);
+// console.log(a);
+
+// const obj = {
+//     a: 5,
+//     b: 1
+// };
+
+
+// function copies(mainObj) {
+//     let objCopy = {};
+//     let key;
+//     for (key in mainObj) {
+//         objCopy[key] = mainObj[key];
+//     }
+
+//     return objCopy;
+// }
+
+// const numbers = {
+//     a: 2,
+//     b: 5,
+//     c: {
+//         x: 7,
+//         y: 4
+//     }
+// };
+
+// const newNumber = copies(numbers);
+
+// newNumber.a = 10;
+
+// console.log(newNumber);
+// console.log(numbers);
+
+
+// const add = {
+//     d: 17,
+//     e: 20
+// };
+
+// console.log(Object.assign(numbers, add));
+
+// const array = ['a', 'b'];
+
+// const newAarray = [...array];
+
+// console.log(newAarray);
+
+
+
+
+// Основы ОПП, прототипно-ориентированное наследование
+
+// let soldier = {
+//     health: 400,
+//     armor: 100,
+//     mana: 300,
+//     sayCommand: function() {
+//         console.log('Hello');
+//     }
+// };
+
+
+
+// let jonh = {
+//     health: 50,
+//     armor: 300
+// };
+
+// // jonh.__proto__ = soldier;
+
+// Object.setPrototypeOf(jonh, soldier);
+
+// console.log(jonh);
+
